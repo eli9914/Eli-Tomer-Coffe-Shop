@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ETCoffee.Models.tblCategories>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="container">
+    <br /><br />
+    <h2 style="text-align:center; color:white;">Subjects List</h2>
+
+    <table class="table table-hover table-dark"  >
+        <thead>
+            <tr style="color:white;">
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody  id="myTable">
+            @foreach (var item in Model)
+            {
+                <tr style="color:white;font-size:20px;">
+
+                    <td>@item.Name</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Category", new { id = item.CatId})" class="btn btn-info">Edit</a>
+                        <a href="@Url.Action("Delete", "Category", new { id = item.CatId})" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ETCoffee.Models.tblUser>
+
+<br /><br /><br />
+<table class="table  table-striped table-light" >
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.RoleType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Password)
+    </td>
+    @if (item.RoleType == 1)
+    {
+        <td>
+            Admin
+        </td>
+    }
+    @if (item.RoleType == 2)
+    {
+        <td>
+            Barista
+        </td>
+    }
+
+    @if (item.RoleType == 3)
+    {
+        <td>
+            Customer
+        </td>
+    }
+    @if (item.RoleType == 4)
+    {
+        <td>
+            VIP
+        </td>
+    }
+</tr>
+}
+
+</table>

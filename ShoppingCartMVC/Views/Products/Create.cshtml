@@ -1,0 +1,41 @@
+﻿@model ETCoffee.Models.tblProducts
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype="multipart/form-data"}))
+{
+    <div class="container"><br /><br />
+        <h2 style="color:white; text-align:center;">Add Item</h2>
+        <div class="row">
+            <div style="position: absolute ;top: 20%; left: 33%;" class="col-lg-4">
+                <form class="bg-white p-5 contact-form">
+                    <div class="form-group">
+                        <span style="color:white;">Name:</span>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <span style="color:white;">Subjects:</span>
+                        @Html.DropDownListFor(m => m.CatId, ViewBag.CatList as SelectList, "--- Select Subject ---")
+                    </div>
+                    <div class="form-group">
+                        <span style="color:white;">Description:</span>
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <span style="color:white;">Price:</span>
+                        @Html.TextBoxFor(m => m.Unit, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <span style="color:white;">Add Image:</span>
+                      <input style="color:white;" type="file" name="Image" />
+                    </div>
+                    <div style="text-align:center;"class="form-group">
+                        <input style="background-color:green;color:white;" type="submit" value="Add Product" class="btn btn-primary py-3 px-5">
+                    </div>
+                </form>
+                <h3 style="color:red;">@TempData["msg"]</h3>
+            </div>
+        </div>
+    </div>
+}

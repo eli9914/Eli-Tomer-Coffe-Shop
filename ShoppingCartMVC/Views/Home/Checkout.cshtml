@@ -1,0 +1,101 @@
+﻿@model IEnumerable<ETCoffee.Models.getAllTableSits>
+
+@*showing cart item with conditions*@
+
+<div class="container">
+    @if (TempData["total"] == null)
+    {
+        <h1 style="color:white;text-align:center;">cart is empty!</h1>
+        <a style="color:white;text-align:center;" href="@Url.Action("Index", "Home")">go back</a>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12 ftco-animate fadeInUp ftco-animated">
+                <div class="cart-list">
+                    <h3 style="color:white;text-align:center;">Total Item : @TempData["item_count"]</h3>
+                    <table class="table table-striped table-light">
+                        <thead class="thead-primary">
+                            <tr style="background-color:blue;" class="text-center">
+                                <th></th>
+                                @*                                <th >ID</th>*@
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in TempData["cart"] as List<ETCoffee.Models.Cart>)
+                            {
+                                <tr class="text-center">
+                                    <td class="product-remove"><a href="@Url.Action("remove", "Home", new { id = item.proid })"><span class="ion-ios-close"></span></a></td>
+                                    @*                                    <td class="product-name">
+                                            <h3>@item.proid</h3>
+                                        </td>*@
+                                    <td class="product-name">
+                                        <h3>@item.proname</h3>
+
+                                    </td>
+                                    <td class="price">@item.price</td>
+
+                                    <td class="quantity">
+                                        @item.qty
+                                    </td>
+                                    <td class="total">$ @item.bill</td>
+                                </tr><!-- END TR-->
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+
+    <br /><br /><br />
+
+
+    @*show checkout button as per user rights*@
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <a style="background-color:green;" href="@Url.Action("Login","Account")" class="btn btn-primary py-3 px-4">Login</a>
+        <a style="background-color:chartreuse;" href="@Url.Action("Register","Account")" class="btn btn-primary py-3 px-4">Register</a>
+    }
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("3") || User.IsInRole("4"))
+        {
+            <a style="background-color:blue; margin-top:20px" href="@Url.Action("Index","Sit")" class="btn btn-primary py-3 px-4">Show Sits</a>
+
+            if (TempData["cart"] != null)
+            {
+                using (Html.BeginForm())
+                {
+                    <div class="cart-total col-lg-2">
+                        <h3 style="color:white;">Cart Total</h3>
+                        <hr>
+                        <p class="d-flex total-price">
+                            <span style="color:white;">Total</span>
+                            <span style="color:white;"> @TempData["total"] </span>
+                        </p>
+                    </div>
+                    <span style="color:white;">Name:</span>
+                    <input type="text" name="customerName" class="form-control col-lg-6" />
+                    <br />
+                    <input type="submit" value="Checkout" class="btn btn-primary py-3 px-4" />
+                }
+            }
+        }
+    }
+</div>
+<style>
+    div {
+        max-width: 100%;
+        max-height: 100%;
+        margin: inherit;
+        display: grid;
+    }
+</style>
+

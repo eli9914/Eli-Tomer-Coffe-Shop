@@ -1,0 +1,32 @@
+﻿@model ETCoffee.Models.tblCategories
+
+@using (Html.BeginForm())
+{
+   
+    <div class="form-horizontal"><br /><br />
+        <h4 style="text-align:center; color:white;">Edit Subjects</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.CatId)
+
+        <div style="text-align:center; color:white;" class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new {@style="text-align:center", @class = "form-control" } })
+               
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="text-align:center;">
+                <input style=" background-color:navy;" type="submit" value="Update" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+
+    <p>@TempData["msg"]</p>
+}
+
+<div>
+    <p style="text-align:center;">@Html.ActionLink("Cancel", "Index")</p> 
+</div>

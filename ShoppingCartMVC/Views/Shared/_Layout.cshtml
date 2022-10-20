@@ -1,0 +1,145 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="~/css/aos.css">
+
+    <link rel="stylesheet" href="~/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="~/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/icomoon.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/bootstrap/bootstrap-reboot.css">
+    <link rel="stylesheet" href="~/css/bootstrap/bootstrap-grid.css">
+    <title>Coffee Shop</title>
+
+
+</head>
+<body style="background-image: url('../../images/cofeee.jpg'); background-size: cover; ">
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light sleep" id="ftco-navbar">
+        <div class="container">
+            <a style="font-size:30px; font-family:'Eras ITC'; color: white;" class="navbar-brand" href="@Url.Action("Index","Home")">E&T Coffee Shop</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+            
+            <div  class="collapse navbar-collapse" id="ftco-nav" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <ul ul class="nav nav-pills" style="font-size: 20px; color: white;">
+                    @* User Rights authentication & authorization Rolebase*@
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+
+                        <li class="nav-item active"><a style="color:white;" href="@Url.Action("Index","Home")" class="nav-link">Home</a></li>
+                        <li class="nav-item active"><a style="color:white;" href="@Url.Action("product","Home")" class="nav-link">Items</a></li>
+                        <li class="nav-item"><a style="color:white;" href="@Url.Action("Login","Account")" class="nav-link">Log In</a></li>
+                        <li class="nav-item"><a style="color:white;" href="@Url.Action("Register", "Account")" class="nav-link">Sign Up</a></li>
+                        <li class="nav-item"><a style="color:gold;" href="@Url.Action("RegisterAsVip", "Account")" class="nav-link">Join As Vip</a></li>
+                        if (TempData["cart"] != null)
+                        {
+                            TempData.Keep();
+                            <li class="nav-item cta cta-colored"><a href="@Url.Action("Checkout","Home")" class="nav-link"><span class="icon-shopping_cart"></span>[@TempData["item_count"]]</a></li>
+                        }
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("1"))
+                        {
+                            <li class="nav-item "><span style="color: white; " class="nav-link">Hello @Session["User"]</span></li>
+                            <li class="nav-item dropdown">
+                                <a style="color: white; font-family: 'Eras ITC';" class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Subjects</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                    <a class="dropdown-item" href="@Url.Action("Create", "Category")">Add Subject</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Category")">View Subjects List</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a style="color: white; font-family: 'Eras ITC';" class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Items</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                    <a class="dropdown-item" href="@Url.Action("Create", "Products")">Add Item</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Products")">View Items List</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a style="color: white; font-family: 'Eras ITC';" class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tables</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                    <a class="dropdown-item" href="@Url.Action("Create", "Table")">Add Tables</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Table")">View Tables List</a>
+                                </div>
+                            </li>
+                        }
+                        else if (User.IsInRole("2"))
+                        {
+                            <li class="nav-item "><span style="color: white; " class="nav-link">Hello @Session["User"]</span></li>
+                            <li class="nav-item"><a style="color: white; font-family: 'Eras ITC';" href="@Url.Action("GetAllUser", "Home")" class="nav-link">Users</a></li>
+                            <li class="nav-item"><a style="color: white; font-family: 'Eras ITC';" href="@Url.Action("GetAllOrderDetail", "Home")" class="nav-link">Orders</a></li>
+                        }
+                        if (User.IsInRole("3"))
+                        {
+                            <li class="nav-item "><span style="color: white;" class="nav-link">Hello @Session["User"]</span></li>
+                            <li class="nav-item active"><a style="color: white; font-family: 'Eras ITC';" href="@Url.Action("Index","Home")" class="nav-link">Home</a></li>
+                            <li class="nav-item active"><a style="color: white; font-family: 'Eras ITC';" href="@Url.Action("product","Home")" class="nav-link">Menu</a></li>
+                            <li class="nav-item"><a style="color: white; font-family: 'Eras ITC';" href="@Url.Action("OrderDetail", "Home", new { id = @Session["uid"] })" class="nav-link">Orders</a></li>
+                            if (TempData["cart"] != null)
+                            {
+                                TempData.Keep();
+                                <li class="nav-item cta cta-colored"><a href="@Url.Action("Checkout","Home")" class="nav-link"><span style="color: white;" class="icon-shopping_cart"></span>[@TempData["item_count"]]</a></li>
+                            }
+                        }
+                        if (User.IsInRole("4"))
+                        {
+                            <li class="nav-item "><span style="color: gold;" class="nav-link">Hello @Session["User"]</span></li>
+                            <li class="nav-item active"><a style="color: white; font-family: 'Eras ITC';" href="@Url.Action("Index","Home")" class="nav-link">Home</a></li>
+                            <li class="nav-item active"><a style="color: white; font-family: 'Eras ITC';" href="@Url.Action("product","Home")" class="nav-link">Menu</a></li>
+                            <li class="nav-item"><a style="color: white; font-family: 'Eras ITC';" href="@Url.Action("OrderDetail", "Home", new { id = @Session["uid"] })" class="nav-link">Orders</a></li>
+                            if (TempData["cart"] != null)
+                            {
+                                TempData.Keep();
+                                <li class="nav-item cta cta-colored"><a href="@Url.Action("Checkout","Home")" class="nav-link"><span style="color: white;" class="icon-shopping_cart"></span>[@TempData["item_count"]]</a></li>
+                            }
+                        }
+                        <li class="nav-item"><a style="color: white; font-family: 'Eras ITC';" href="@Url.Action("Signout", "Account")" class="nav-link">Log out</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    @RenderBody()
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <!-- footer links -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.easing.1.3.js"></script>
+    <script src="~/js/jquery.waypoints.min.js"></script>
+    <script src="~/js/jquery.stellar.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/aos.js"></script>
+    <script src="~/js/jquery.animateNumber.min.js"></script>
+    <script src="~/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=aizasybvwakrjvy3mae7sq74_ujiulgl1jy0h2s&sensor=false"></script>
+    <script src="~/js/google-map.js"></script>
+    <script src="~/js/main.js"></script>
+</body>
+</html>

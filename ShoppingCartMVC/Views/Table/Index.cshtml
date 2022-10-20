@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ETCoffee.Models.tblTable>
+
+<script src="~/js/jquery.min.js"></script>
+
+
+
+<div class="container"> <br /><br />
+    <h2 style="color:white;text-align:center;">Tables List</h2>
+    <table class="table table-hover table-dark">
+        <thead style="color:white;">
+            <tr>
+                <th>Table Number</th>
+                <th>Number Of Sits</th>
+                <th>Area</th>
+                <th>Action</th>
+                @*<th>Inside/Outside<input style="background-color:red;" type="checkbox" value="Inside" id="checkBox" onclick="ShowTablesForArea()" /></th>*@
+            </tr>
+        </thead>
+        <tbody style="color:white;font-size:20px;" id="myTable">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.tableId</td>
+                    <td>@item.numSeats</td>
+                    <td>@item.area</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Table", new { id = item.tableId})" class="btn btn-info">Edit</a>
+                        <a href="@Url.Action("Delete", "Table", new { id = item.tableId})" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ETCoffee.Models.tblProducts>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-3 pb-3">
+            <div class="col-md-12 heading-section text-center ftco-animate fadeInUp ftco-animated">
+              
+                <h2 style="color: white;" class="mb-4">Menu</h2>
+             
+            </div>
+        </div>
+    </div>
+    <script src="~/js/jquery.min.js"></script>
+
+
+    <div class="container">
+
+
+        <div class="row" id="result">
+
+
+
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated" >
+                    <div class="product ">
+                        <a  href="@Url.Action("AddtoCart", "Home", new { id = @item.ProID })" class="img-prod">
+                            <img class="img-fluid" src="~/Uploads/@item.Image" style="height:250px;" alt="Colorlib Template">
+                           
+                            <div class="overlay"></div>
+                        </a>
+                        <div style="background-color:brown;" class="text py-3 pb-4 px-3 text-center">
+
+                            <h3><a  style="color:white;font-size:20px; font-family:'Mongolian Baiti';" href="@Url.Action("AddtoCart", "Home", new { id = @item.ProID })">@item.Name</a></h3>
+                            <div class="d-flex">
+                                <div class="pricing">
+                                    <p class="price"><span class="mr-2 price-dc"></span><span style="color:white;" class="price-sale">@item.Unit$</span></p>
+                                </div>
+                            </div>
+                            <div  class="d-flex px-3">
+                                <div class="m-auto d-flex">
+
+                                    <a href="@Url.Action("AddtoCart", "Home", new { id = @item.ProID })" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                        <span style="color:white;">Buy Now</span>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</section>

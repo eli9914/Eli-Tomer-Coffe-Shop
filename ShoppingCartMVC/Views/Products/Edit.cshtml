@@ -1,0 +1,51 @@
+﻿@model ETCoffee.Models.tblProducts
+
+@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype="multipart/form-data" }))
+{
+    <div style="color:white;text-align:center;" class="form-horizontal">
+        <h4 style="text-align:center;color:white;">Edit Item</h4>
+        <hr />     
+        @Html.HiddenFor(model => model.ProID)
+        <div style="place-content:center;" class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-sm-12">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new {@style="text-align:center",@class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @style = "text-align:center", @class = "form-control" } })
+              
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Unit, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @style = "text-align:center", @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+             <span>Select Image:</span>
+            <div class="col-md-12">
+                <img src="~/Uploads/@Model.Image" style="width:150px; height:100px;" class="img-responsive" />
+                <input type="file" name="Image" />
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CatId, "CatId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.DropDownList("CatId", ViewBag.CatList as SelectList, htmlAttributes: new { @style = "text-align:center", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div style="text-align:center;">
+                <input style="background-color: navy;" type="submit" value="Update" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+    <p>@TempData["msg"]</p>
+}
+<div>
+    <p style="text-align:center;">@Html.ActionLink("Cancel", "Index")</p> 
+</div>
